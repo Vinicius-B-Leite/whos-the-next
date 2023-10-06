@@ -15,7 +15,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import Player from '@/components/Player';
 import { PlayerType } from '@/types/Player';
 import { useDispatch } from 'react-redux';
-import { addNewPlayerOnQueue } from '@/feature/players';
+import { addNewPlayerOnQueue } from '@/feature/playersOnQueue';
 
 
 
