@@ -6,7 +6,7 @@ import { View } from 'react-native';
 // import { Container } from './styles';
 
 const Box = createBox<ThemeType>()
-export type BoxProps = React.ComponentProps<typeof Box>
+export type BoxType = React.ComponentProps<typeof Box>
 
 
 

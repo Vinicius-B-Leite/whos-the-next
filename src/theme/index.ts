@@ -17,6 +17,21 @@ export const theme = createTheme({
     },
     textVariants: {
         defaults: {
+
+        },
+        buttonSecondary: {
+            color: 'secondaryContrast',
+            textDecorationLine: 'underline'
+        }
+    },
+    buttonVariants: {
+        defaults: {
+        },
+        secondary: {
+            backgroundColor: 'darkSecondaryContrast',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: '4'
         }
     }
 })

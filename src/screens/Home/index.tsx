@@ -7,6 +7,7 @@ import { ThemeType } from '@/theme';
 import CurrentPlayer from './components/CurrentPlayer';
 import Text from '@/components/Text';
 import Pontuation from './components/Pontuation';
+import Queue from './components/Queue';
 
 
 const Home: React.FC = () => {
@@ -20,6 +21,8 @@ const Home: React.FC = () => {
                 <Pontuation />
                 <CurrentPlayer playerName='Vinicius' inverse />
             </Box>
+
+            <Queue />
         </Box>
     )
 }

@@ -1,10 +1,10 @@
-import { BoxProps } from "@/components/Box";
+import { BoxType } from "@/components/Box";
 import { ButtonType } from "@/components/Button";
 import { TextType } from "@/components/Text";
 import { responsiveSize } from "@/theme/responsiveSize";
 import { Image, ImageStyle, StyleProp } from "react-native";
 
-export const boxStyle: BoxProps = {
+export const boxStyle: BoxType = {
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 10,

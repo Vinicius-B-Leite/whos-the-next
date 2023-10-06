@@ -11,4 +11,5 @@ export const darkPallete = {
     primaryText: '#FFFFFF',
 
     alert: '#FF0000',
+    darkAlert: '#4d0000',
 }
