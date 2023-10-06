@@ -20,8 +20,8 @@ export const closeBtnStyle: StyleProp<ViewStyle> = {
 export const containerStyle: BoxType = {
     backgroundColor: 'bg',
     padding: 12,
-    width: '60%',
-    height: '30%',
+    width: '80%',
+    height: '50%',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
@@ -30,18 +30,19 @@ export const containerStyle: BoxType = {
 
 export const pickImageStyle: ButtonType = {
     backgroundColor: 'secondaryBg',
-    padding: 18,
-    borderRadius: 32
+    padding: 32,
+    borderRadius: 80
 }
 
 export const usernameInputStyle: StyleProp<TextStyle> = {
     width: '100%',
-    padding: 10,
+    padding: 16,
     marginTop: responsiveSize[24],
     fontSize: responsiveSize[12],
     borderRadius: 4
 }
 
 export const createPlayerBtnStyle: ButtonType = {
-    marginTop: 8
+    marginTop: 14,
+    padding: 4
 }

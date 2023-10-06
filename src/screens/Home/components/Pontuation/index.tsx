@@ -12,7 +12,7 @@ const Pontuation: React.FC = () => {
     if (!player1 || !player2) return
 
     return (
-        <Box justifyContent='center' alignItems='center'>
+        <Box justifyContent='center' alignItems='center' flex={0.25}>
             <Text {...pontuationsStyle}>
                 {player1.points} - {player2.points}
             </Text>

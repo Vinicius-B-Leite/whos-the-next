@@ -14,5 +14,6 @@ export const currentPlayersStyle: BoxType = {
     borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'center',
+    paddingHorizontal: 10
 }
 

@@ -32,18 +32,18 @@ const CurrentPlayer: React.FC<Props> = ({ inverse = false, player }) => {
 
     return (
         <Box {...boxStyle} flexDirection={inverse ? 'row-reverse' : 'row'}>
-            <Box gap={10} >
+            <Box gap={8} justifyContent='center' alignItems='center'>
                 <Button {...buttonStyle} onPress={handleIncrementPontuation}>
                     <AntDesign
                         name="plus"
-                        size={theme.spacing[20]}
+                        size={theme.spacing[26]}
                         color={theme.colors.primaryContrast}
                     />
                 </Button>
                 <Button {...buttonStyle} onPress={handleDecrementPontuation}>
                     <AntDesign
                         name="minus"
-                        size={theme.spacing[20]}
+                        size={theme.spacing[26]}
                         color={theme.colors.primaryContrast}
                     />
                 </Button>

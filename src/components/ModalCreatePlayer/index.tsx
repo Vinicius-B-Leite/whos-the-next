@@ -56,7 +56,7 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
 
                 <Box {...containerStyle}>
                     <Button {...pickImageStyle}>
-                        <Entypo name="camera" size={responsiveSize[26]} color={colors.primaryContrast} />
+                        <Entypo name="camera" size={responsiveSize[32]} color={colors.primaryContrast} />
                     </Button>
                     <TextInput
                         style={[

@@ -7,11 +7,14 @@ import { Image, ImageStyle, StyleProp } from "react-native";
 export const boxStyle: BoxType = {
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 10,
+    gap: 4,
+    flex: 0.4
 }
 
 export const buttonStyle: ButtonType = {
     backgroundColor: 'secondaryBg',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 'full',
     p: 4
 }

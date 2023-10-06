@@ -21,7 +21,7 @@ export const theme = createTheme({
         },
         buttonPrimary: {
             color: 'primaryText',
-            fontSize: responsiveSize[12],
+            fontSize: responsiveSize[18],
             fontWeight: 'bold',
             padding: 4,
         },

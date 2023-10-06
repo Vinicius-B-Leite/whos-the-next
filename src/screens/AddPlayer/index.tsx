@@ -23,7 +23,7 @@ import ModalCreatePlayer from '@/components/ModalCreatePlayer';
 
 const AddPlayer: React.FC = () => {
     const { colors, spacing } = useTheme<ThemeType>()
-    const { bottom } = useSafeAreaInsets()
+    const { bottom, top } = useSafeAreaInsets()
 
     const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ const AddPlayer: React.FC = () => {
     }
 
     return (
-        <Box {...containerStyle}>
+        <Box {...containerStyle} style={{ paddingTop: top + spacing[16] }}>
             <Box {...headerStyle} >
                 <Button onPress={navigation.goBack}>
                     <AntDesign name="arrowleft" size={responsiveSize[24]} color={colors.primaryText} />

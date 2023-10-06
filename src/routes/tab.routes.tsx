@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator<TabType>()
 
 const TabRoutes: React.FC = () => {
     const { colors, spacing, borderRadii } = useTheme<ThemeType>()
-    DefaultTheme.colors.background = colors.darkPrimaryContrast
+    DefaultTheme.colors.background = colors.secondaryBg
 
     return (
         <Tab.Navigator
