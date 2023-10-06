@@ -5,22 +5,20 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { boxStyle, imageStyle, textStyle } from './style';
 import { Image } from 'react-native';
 import LeftSwipeable from './components/LeftSwipeable';
+import { PlayerType } from '@/types/Player';
+import ImageNotFound from '@/assets/imageNotFound.png';
 
-type Props = {
-    id: string,
-    avatar: string,
-    username: string,
-}
+type Props = PlayerType
 
-const Player: React.FC<Props> = ({ id, avatar, username }) => {
+const Player: React.FC<Props> = ({ id, avatarUrl, playerName }) => {
     return (
         <Swipeable renderLeftActions={() => <LeftSwipeable />}>
             <Box {...boxStyle}>
                 <Image
-                    source={{ uri: avatar }}
+                    source={avatarUrl ? { uri: avatarUrl } : ImageNotFound}
                     style={{ ...imageStyle }}
                 />
-                <Text {...textStyle}>{username}</Text>
+                <Text {...textStyle}>{playerName}</Text>
             </Box>
         </Swipeable>
     )

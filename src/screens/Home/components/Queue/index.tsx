@@ -6,42 +6,14 @@ import Button from '@/components/Button';
 import { FlatList } from 'react-native';
 import Player from '@/components/Player';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/feature/store';
 
-const data = [
-    {
-        id: '1',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-    {
-        id: '2',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-    {
-        id: '3',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-    {
-        id: '4',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-    {
-        id: '5',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-    {
-        id: '6',
-        avatar: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg',
-        username: 'wezsxrdctfvytub'
-    },
-]
 
 const Queue: React.FC = () => {
     const navigation = useNavigation()
+    const players = useSelector((state: RootState) => state.player)
+
 
     return (
         <Box {...queueStyle}>
@@ -53,7 +25,7 @@ const Queue: React.FC = () => {
             </Box>
 
             <FlatList
-                data={data}
+                data={players}
                 keyExtractor={({ id }) => id}
                 renderItem={({ item }) => <Player {...item} />}
             />
