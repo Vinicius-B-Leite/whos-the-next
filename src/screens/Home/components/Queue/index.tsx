@@ -6,15 +6,26 @@ import Button from '@/components/Button';
 import { FlatList } from 'react-native';
 import Player from '@/components/Player';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
+import { selectNextPlayer } from '@/feature/playersPlaying';
+import { removeNextPlayer } from '@/feature/players';
+import { PlayerType } from '@/types/Player';
 
 
 const Queue: React.FC = () => {
     const navigation = useNavigation<NavigationProp<TabType>>()
-    const players = useSelector((state: RootState) => state.nextPlayerQueue)
+    const playersInQueue = useSelector((state: RootState) => state.nextPlayerQueue)
 
+    const dispatch = useDispatch()
+
+    const selectNextPlayerOfQueue = (player: PlayerType) => {
+        if (playersInQueue[0].id === player.id) {
+            dispatch(selectNextPlayer({ nextPlayer: player }))
+            dispatch(removeNextPlayer())
+        }
+    }
 
     return (
         <Box {...queueStyle}>
@@ -30,9 +41,9 @@ const Queue: React.FC = () => {
             </Box>
 
             <FlatList
-                data={players}
+                data={playersInQueue}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <Player {...item} />}
+                renderItem={({ item }) => <Player {...item} onSelectPlayer={selectNextPlayerOfQueue} />}
             />
         </Box>
     )

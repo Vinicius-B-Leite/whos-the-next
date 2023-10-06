@@ -13,9 +13,11 @@ import { RootState } from '@/feature/store';
 import { selectNextPlayer } from '@/feature/playersPlaying';
 import { removeNextPlayer } from '@/feature/players';
 
-type Props = PlayerType
+type Props = PlayerType & {
+    onSelectPlayer: (player: PlayerType) => void
+}
 
-const Player: React.FC<Props> = (player) => {
+const Player: React.FC<Props> = ({ onSelectPlayer, ...player }) => {
     const dispatch = useDispatch()
 
     const selectNextPlayerOfQueue = () => {
@@ -25,7 +27,7 @@ const Player: React.FC<Props> = (player) => {
 
     return (
         <Swipeable renderLeftActions={() => <LeftSwipeable />}>
-            <Button {...boxStyle} onPress={selectNextPlayerOfQueue}>
+            <Button {...boxStyle} onPress={() => onSelectPlayer(player)}>
                 <Image
                     source={player.avatarUrl ? { uri: player.avatarUrl } : ImageNotFound}
                     style={{ ...imageStyle }}

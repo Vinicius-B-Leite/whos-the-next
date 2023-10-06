@@ -12,7 +12,8 @@ export const boxStyle: ButtonType = {
     width: '100%',
     paddingVertical: 10,
     alignItems: 'center',
-    gap: 10
+    gap: 10,
+    activeOpacity: 0.9
 }
 
 export const imageStyle: ImageStyle = {
