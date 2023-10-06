@@ -41,14 +41,30 @@ export const playersPlayingSlice = createSlice({
                 state.player1 = { ...action.payload.nextPlayer, points: 0 }
                 state.player2.points = 0
             }
+        },
+        incrementPontuation: (state, action: PayloadAction<PlayerType>) => {
+            const isPlayer1 = action.payload.id === state.player1.id
 
+            if (isPlayer1) {
+                state.player1.points += 1
+                return
+            }
 
+            state.player2.points += 1
+        },
+        decrementPontuation: (state, action: PayloadAction<PlayerType>) => {
+            const isPlayer1 = action.payload.id === state.player1.id
 
+            if (isPlayer1) {
+                state.player1.points -= 1
+                return
+            }
 
+            state.player2.points -= 1
         }
     },
 })
 
-export const { selectNextPlayer } = playersPlayingSlice.actions
+export const { selectNextPlayer, incrementPontuation, decrementPontuation } = playersPlayingSlice.actions
 
 export const playersPlayingReducer = playersPlayingSlice.reducer

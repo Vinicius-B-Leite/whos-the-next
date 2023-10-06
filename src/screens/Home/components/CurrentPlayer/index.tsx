@@ -9,26 +9,38 @@ import Button from '@/components/Button';
 import ImageNotFound from '@/assets/imageNotFound.png';
 import Text from '@/components/Text';
 import { PlayerType } from '@/types/Player';
+import { useDispatch } from 'react-redux';
+import { decrementPontuation, incrementPontuation } from '@/feature/playersPlaying';
 
 
 type Props = {
     inverse?: boolean
-    player: PlayerType
+    player: PlayerType & { points: number }
 }
 const CurrentPlayer: React.FC<Props> = ({ inverse = false, player }) => {
     const theme = useTheme<ThemeType>()
+    const dispatch = useDispatch()
+
+    const handleIncrementPontuation = () => {
+        dispatch(incrementPontuation(player))
+    }
+
+    const handleDecrementPontuation = () => {
+        if (player.points <= 0) return
+        dispatch(decrementPontuation(player))
+    }
 
     return (
         <Box {...boxStyle} flexDirection={inverse ? 'row-reverse' : 'row'}>
             <Box gap={10} >
-                <Button {...buttonStyle}>
+                <Button {...buttonStyle} onPress={handleIncrementPontuation}>
                     <AntDesign
                         name="plus"
                         size={theme.spacing[20]}
                         color={theme.colors.primaryContrast}
                     />
                 </Button>
-                <Button backgroundColor='secondaryBg' borderRadius='full' p={4}>
+                <Button {...buttonStyle} onPress={handleDecrementPontuation}>
                     <AntDesign
                         name="minus"
                         size={theme.spacing[20]}

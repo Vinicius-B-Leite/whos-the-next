@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { playersQueueReducer } from '@/feature/players'
+import { playersQueueReducer } from '@/feature/playersOnQueue'
 import { playersPlayingReducer } from './playersPlaying'
 
 

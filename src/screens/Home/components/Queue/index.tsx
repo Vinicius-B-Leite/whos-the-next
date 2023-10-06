@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
 import { selectNextPlayer } from '@/feature/playersPlaying';
-import { addNewPlayerOnQueue, removeNextPlayerOnQueue } from '@/feature/players';
+import { addNewPlayerOnQueue, removeNextPlayerOnQueue } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
 
 
