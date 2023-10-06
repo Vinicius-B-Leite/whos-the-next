@@ -1,6 +1,7 @@
 export const darkPallete = {
     bg: '#262626',
     secondaryBg: '#131313',
+    tranparentBg: 'rgba(19, 19, 19,0.7)',
 
     primaryContrast: '#FF7A00',
     darkPrimaryContrast: '#B76010',

@@ -19,6 +19,12 @@ export const theme = createTheme({
         defaults: {
 
         },
+        buttonPrimary: {
+            color: 'primaryText',
+            fontSize: responsiveSize[12],
+            fontWeight: 'bold',
+            padding: 4,
+        },
         buttonSecondary: {
             color: 'secondaryContrast',
             textDecorationLine: 'underline'
@@ -26,6 +32,15 @@ export const theme = createTheme({
     },
     buttonVariants: {
         defaults: {
+
+        },
+        primary: {
+            backgroundColor: 'primaryContrast',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 4
+
         },
         secondary: {
             backgroundColor: 'darkSecondaryContrast',
