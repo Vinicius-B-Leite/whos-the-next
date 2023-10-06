@@ -9,5 +9,5 @@ export function setPlasyers(plasyers: PlayerType[]) {
 export function getPlayers() {
     const players = storage.getString(PLAYERS_KEY)
 
-    return players ? JSON.parse(players) : null
+    return players ? JSON.parse(players) as PlayerType[] : null
 }

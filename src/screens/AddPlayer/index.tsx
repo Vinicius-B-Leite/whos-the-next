@@ -17,37 +17,30 @@ import { PlayerType } from '@/types/Player';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewPlayerOnQueue } from '@/feature/playersOnQueue';
 import { RootState } from '@/feature/store';
+import ModalCreatePlayer from '@/components/ModalCreatePlayer';
 
 
 
 const AddPlayer: React.FC = () => {
     const { colors, spacing } = useTheme<ThemeType>()
-    const { bottom, top } = useSafeAreaInsets()
-    const navigation = useNavigation<NavigationProp<TabType>>()
-    const [isModalVisible, setIsModalVisible] = useState(false)
-    const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])
-    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
+    const { bottom } = useSafeAreaInsets()
+
     const dispatch = useDispatch()
 
-    const handleAddPlayer = () => {
-        const newPlayer = {
-            id: '222222',
-            losses: 3,
-            playerName: 'Kaique',
-            wins: 5,
-        }
-        setPlasyers([...allPlayers, newPlayer])
-        setAllPlayer(oldPlayers => [...oldPlayers, newPlayer])
-    }
+    const navigation = useNavigation<NavigationProp<TabType>>()
+
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])
+
+
 
     const onSelectPlayer = (player: PlayerType) => {
-        if (player1.id === '1') { }
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
     }
 
     return (
-        <Box {...containerStyle} style={{ paddingTop: top + spacing[24] }}>
+        <Box {...containerStyle}>
             <Box {...headerStyle} >
                 <Button onPress={navigation.goBack}>
                     <AntDesign name="arrowleft" size={responsiveSize[24]} color={colors.primaryText} />
@@ -67,10 +60,16 @@ const AddPlayer: React.FC = () => {
             />
 
             <Box {...createPlayerStyle} style={{ bottom: bottom + spacing[24] }}>
-                <TouchableOpacity onPress={handleAddPlayer}>
+                <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                     <AntDesign name="plus" size={responsiveSize[32]} color={colors.secondaryContrast} />
                 </TouchableOpacity>
             </Box>
+
+            <ModalCreatePlayer
+                visible={isModalVisible}
+                onRequestClose={() => setIsModalVisible(false)}
+                onSucessPlayerCreated={(player) => setAllPlayer(oldPlayers => [...oldPlayers, player])}
+            />
         </Box>
     )
 }
