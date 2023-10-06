@@ -8,11 +8,11 @@ import { RootState } from '@/feature/store';
 
 const Pontuation: React.FC = () => {
 
-    const playersPlayings = useSelector((state: RootState) => state.playersPlayings)
+    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
     return (
         <Box justifyContent='center' alignItems='center'>
             <Text {...pontuationsStyle}>
-                {playersPlayings[0].points} - {playersPlayings[1].points}
+                {player1.points} - {player2.points}
             </Text>
         </Box>
     )

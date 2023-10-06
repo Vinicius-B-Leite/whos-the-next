@@ -10,20 +10,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
 import { selectNextPlayer } from '@/feature/playersPlaying';
-import { removeNextPlayer } from '@/feature/players';
+import { addNewPlayerOnQueue, removeNextPlayerOnQueue } from '@/feature/players';
 import { PlayerType } from '@/types/Player';
 
 
 const Queue: React.FC = () => {
     const navigation = useNavigation<NavigationProp<TabType>>()
     const playersInQueue = useSelector((state: RootState) => state.nextPlayerQueue)
+    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
 
     const dispatch = useDispatch()
 
     const selectNextPlayerOfQueue = (player: PlayerType) => {
         if (playersInQueue[0].id === player.id) {
+
+            const isPlayer1Winner = player1.points > player2.points
+
+            dispatch(addNewPlayerOnQueue(isPlayer1Winner ? player2 : player1))
             dispatch(selectNextPlayer({ nextPlayer: player }))
-            dispatch(removeNextPlayer())
+            dispatch(removeNextPlayerOnQueue())
+
+            console.log()
         }
     }
 

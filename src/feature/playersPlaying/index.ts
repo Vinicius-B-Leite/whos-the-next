@@ -1,38 +1,48 @@
 import { PlayerType } from '@/types/Player'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { store } from '../store'
 
 
-type initialState = PlayerType & { points: number }
+type initialState = {
+    player1: PlayerType & { points: number },
+    player2: PlayerType & { points: number }
+}
 
-const initialState: initialState[] = [
-    {
+const initialState: initialState = {
+    player1: {
         id: '1',
         losses: 0,
         playerName: 'Cbum0',
         wins: 0,
         points: 1
     },
-    {
+    player2: {
         id: '2',
         losses: 0,
         playerName: 'Cbum2',
         wins: 0,
         points: 4
     }
-]
+}
 
 export const playersPlayingSlice = createSlice({
     name: 'playersPlaying',
     initialState,
     reducers: {
         selectNextPlayer: (state, action: PayloadAction<{ nextPlayer: PlayerType }>) => {
-            //substituir o proximo da lista pelo jogador perdedor
-            const indexOfPlayerLosing = state[0].points > state[1].points ? 1 : 0
-            state[indexOfPlayerLosing] = { ...action.payload.nextPlayer, points: 0 }
+            const isPlayer1Winner = state.player1.points > state.player2.points
 
-            //zerar os pontos do ganhador
-            state[indexOfPlayerLosing === 0 ? 1 : 0].points = 0
+            if (isPlayer1Winner) {
+                state.player2 = { ...action.payload.nextPlayer, points: 0 }
+                state.player1.points = 0
+            }
+            else {
+                state.player1 = { ...action.payload.nextPlayer, points: 0 }
+                state.player2.points = 0
+            }
+
+
 
 
         }
