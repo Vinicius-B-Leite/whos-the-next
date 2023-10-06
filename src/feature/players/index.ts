@@ -22,15 +22,15 @@ export const playersQueueSlice = createSlice({
     name: 'players',
     initialState,
     reducers: {
-        removeNextPlayer: (state) => {
+        removeNextPlayerOnQueue: (state) => {
             state.splice(0, 1)
         },
         addNewPlayerOnQueue: (state, actions: PayloadAction<PlayerType>) => {
             state.push(actions.payload)
-        }
+        },
     },
 })
 
-export const { removeNextPlayer, addNewPlayerOnQueue } = playersQueueSlice.actions
+export const { removeNextPlayerOnQueue, addNewPlayerOnQueue } = playersQueueSlice.actions
 
 export const playersQueueReducer = playersQueueSlice.reducer

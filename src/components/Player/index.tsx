@@ -11,19 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button';
 import { RootState } from '@/feature/store';
 import { selectNextPlayer } from '@/feature/playersPlaying';
-import { removeNextPlayer } from '@/feature/players';
 
 type Props = PlayerType & {
     onSelectPlayer: (player: PlayerType) => void
 }
 
 const Player: React.FC<Props> = ({ onSelectPlayer, ...player }) => {
-    const dispatch = useDispatch()
 
-    const selectNextPlayerOfQueue = () => {
-        dispatch(selectNextPlayer({ nextPlayer: player }))
-        dispatch(removeNextPlayer())
-    }
 
     return (
         <Swipeable renderLeftActions={() => <LeftSwipeable />}>

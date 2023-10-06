@@ -16,14 +16,15 @@ import { RootState } from '@/feature/store';
 const Home: React.FC = () => {
     const { top, bottom } = useSafeAreaInsets()
     const theme = useTheme<ThemeType>()
-    const currentPlayers = useSelector((state: RootState) => state.playersPlayings)
+    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
 
     return (
         <Box {...containerStyle} style={{ paddingTop: top + theme.spacing[20] }}>
+
             <Box {...currentPlayersStyle}>
-                <CurrentPlayer player={currentPlayers[0]} />
+                <CurrentPlayer player={player1} />
                 <Pontuation />
-                <CurrentPlayer player={currentPlayers[1]} inverse />
+                <CurrentPlayer player={player2} inverse />
             </Box>
 
             <Queue />
