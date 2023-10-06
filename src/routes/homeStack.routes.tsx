@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator<HomeType>()
 
 const HomeStackb: React.FC = () => {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }} >
             <Stack.Screen
                 name='Home'
                 component={Home}

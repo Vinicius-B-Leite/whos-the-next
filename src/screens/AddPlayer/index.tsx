@@ -14,37 +14,40 @@ import { getPlayers, setPlasyers } from '@/storage/playersStorage';
 import { FlatList } from 'react-native-gesture-handler';
 import Player from '@/components/Player';
 import { PlayerType } from '@/types/Player';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNewPlayerOnQueue } from '@/feature/playersOnQueue';
+import { RootState } from '@/feature/store';
 
 
 
 const AddPlayer: React.FC = () => {
     const { colors, spacing } = useTheme<ThemeType>()
-    const { bottom } = useSafeAreaInsets()
+    const { bottom, top } = useSafeAreaInsets()
     const navigation = useNavigation<NavigationProp<TabType>>()
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])
+    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
     const dispatch = useDispatch()
 
     const handleAddPlayer = () => {
         const newPlayer = {
-            id: '1111',
+            id: '222222',
             losses: 3,
-            playerName: 'Cbum iiiii',
+            playerName: 'Kaique',
             wins: 5,
         }
-        setPlasyers([newPlayer])
+        setPlasyers([...allPlayers, newPlayer])
         setAllPlayer(oldPlayers => [...oldPlayers, newPlayer])
     }
 
     const onSelectPlayer = (player: PlayerType) => {
+        if (player1.id === '1') { }
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
     }
 
     return (
-        <Box {...containerStyle}>
+        <Box {...containerStyle} style={{ paddingTop: top + spacing[24] }}>
             <Box {...headerStyle} >
                 <Button onPress={navigation.goBack}>
                     <AntDesign name="arrowleft" size={responsiveSize[24]} color={colors.primaryText} />

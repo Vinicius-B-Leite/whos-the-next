@@ -9,6 +9,8 @@ import { RootState } from '@/feature/store';
 const Pontuation: React.FC = () => {
 
     const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
+    if (!player1 || !player2) return
+
     return (
         <Box justifyContent='center' alignItems='center'>
             <Text {...pontuationsStyle}>

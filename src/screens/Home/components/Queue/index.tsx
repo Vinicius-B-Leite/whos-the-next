@@ -9,7 +9,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
-import { selectNextPlayer } from '@/feature/playersPlaying';
+import { initGame, selectNextPlayer } from '@/feature/playersPlaying';
 import { addNewPlayerOnQueue, removeNextPlayerOnQueue } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
 
@@ -22,11 +22,24 @@ const Queue: React.FC = () => {
     const dispatch = useDispatch()
 
     const selectNextPlayerOfQueue = (player: PlayerType) => {
+        if (player1.id === '1') {
+            dispatch(initGame(player))
+            dispatch(removeNextPlayerOnQueue())
+            return
+        }
+        if (player2.id === '2') {
+            dispatch(initGame(player))
+            dispatch(removeNextPlayerOnQueue())
+            return
+        }
         if (playersInQueue[0].id === player.id) {
 
             const isPlayer1Winner = player1.points > player2.points
 
             dispatch(addNewPlayerOnQueue(isPlayer1Winner ? player2 : player1))
+
+            if ([player1.id, player2.id].includes(player.id)) return
+
             dispatch(selectNextPlayer({ nextPlayer: player }))
             dispatch(removeNextPlayerOnQueue())
 

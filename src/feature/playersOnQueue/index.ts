@@ -3,20 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 
-const initialState: PlayerType[] = [
-    {
-        id: '1',
-        losses: 0,
-        playerName: 'Cbum',
-        wins: 0,
-    },
-    {
-        id: '2',
-        losses: 0,
-        playerName: 'Cbum99',
-        wins: 0,
-    },
-]
+const initialState: PlayerType[] = []
 
 export const playersQueueSlice = createSlice({
     name: 'players',
