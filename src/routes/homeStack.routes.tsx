@@ -2,8 +2,9 @@ import AddPlayer from '@/screens/AddPlayer';
 import Home from '@/screens/Home';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { HomeType } from './types/homeType';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<HomeType>()
 
 const HomeStackb: React.FC = () => {
     return (

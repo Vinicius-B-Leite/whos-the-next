@@ -5,13 +5,14 @@ import Text from '@/components/Text';
 import Button from '@/components/Button';
 import { FlatList } from 'react-native';
 import Player from '@/components/Player';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
+import { TabType } from '@/routes/types/tabType';
 
 
 const Queue: React.FC = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<NavigationProp<TabType>>()
     const players = useSelector((state: RootState) => state.nextPlayerQueue)
 
 
@@ -19,7 +20,11 @@ const Queue: React.FC = () => {
         <Box {...queueStyle}>
             <Box {...headerStyle}>
                 <Text {...listTitle}>Próximo</Text>
-                <Button variant='secondary' paddingHorizontal={12}>
+                <Button
+                    variant='secondary'
+                    paddingHorizontal={12}
+                    onPress={() => navigation.navigate('HomeStack', { screen: 'AddPlayer' })}
+                >
                     <Text variant='buttonSecondary'>Adicionar jogador</Text>
                 </Button>
             </Box>

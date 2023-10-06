@@ -1,15 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { View } from 'react-native';
-import HomeStackb from './homeStack.routes';
+import HomeStackb from '@/routes/homeStack.routes';
 import Ranking from '@/screens/Ranking';
 import { useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import { DefaultTheme } from '@react-navigation/native';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import { responsiveSize } from '@/theme/responsiveSize';
+import { TabType } from '@/routes/types/tabType';
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<TabType>()
 
 const TabRoutes: React.FC = () => {
     const { colors, spacing, borderRadii } = useTheme<ThemeType>()
