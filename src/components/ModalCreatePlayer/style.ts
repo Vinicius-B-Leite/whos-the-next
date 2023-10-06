@@ -6,6 +6,7 @@ import { responsiveSize } from "@/theme/responsiveSize";
 
 export const mainContainer: BoxType = {
     justifyContent: 'center',
+    alignItems: 'center',
     flex: 1
 }
 export const closeBtnStyle: StyleProp<ViewStyle> = {
@@ -17,21 +18,21 @@ export const closeBtnStyle: StyleProp<ViewStyle> = {
     zIndex: -1,
 }
 
-export const containerStyle: BoxType = {
-    backgroundColor: 'bg',
-    padding: 12,
+export const containerStyle: StyleProp<ViewStyle> = {
+    padding: 14,
     width: '80%',
-    height: '50%',
-    justifyContent: 'center',
     alignSelf: 'center',
-    alignItems: 'center',
     borderRadius: 10
 }
 
 export const pickImageStyle: ButtonType = {
     backgroundColor: 'secondaryBg',
-    padding: 32,
-    borderRadius: 80
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 80,
+    width: '40%',
+    paddingVertical: 32,
+    alignSelf: 'center',
 }
 
 export const usernameInputStyle: StyleProp<TextStyle> = {
@@ -44,5 +45,5 @@ export const usernameInputStyle: StyleProp<TextStyle> = {
 
 export const createPlayerBtnStyle: ButtonType = {
     marginTop: 14,
-    padding: 4
+    padding: 4,
 }

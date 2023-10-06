@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Modal, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Button from '../Button';
 import { closeBtnStyle, containerStyle, createPlayerBtnStyle, mainContainer, pickImageStyle, usernameInputStyle } from './style';
 import Box from '../Box';
@@ -28,6 +28,7 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
 
 
     const handleAddPlayer = () => {
+        if (!username) return
 
         const allPlayers = getPlayers()
         const newPlayer: PlayerType = {
@@ -49,34 +50,41 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
             transparent
             visible={visible}
             onRequestClose={onRequestClose}>
+
+            <TouchableOpacity
+                style={[closeBtnStyle, { backgroundColor: colors.tranparentBg, }]}
+                onPress={onRequestClose} />
+
             <Box {...mainContainer}>
-                <TouchableOpacity
-                    style={[closeBtnStyle, { backgroundColor: colors.tranparentBg, }]}
-                    onPress={onRequestClose} />
+                <Box height='55%' width={'100%'}>
+                    <ScrollView
+                        style={[{ backgroundColor: colors.bg, }, containerStyle]}
+                        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} >
+                        <Button {...pickImageStyle}>
+                            <Entypo name="camera" size={responsiveSize[32]} color={colors.primaryContrast} />
+                        </Button>
+                        <TextInput
+                            style={[
+                                usernameInputStyle,
+                                {
+                                    backgroundColor: colors.secondaryBg,
+                                    color: colors.primaryText,
+                                    fontSize: responsiveSize[14]
+                                }
+                            ]}
+                            placeholderTextColor={colors.primaryText}
+                            placeholder='Nome do novo jogador'
+                            value={username}
+                            onChangeText={setUsername}
+                        />
 
-                <Box {...containerStyle}>
-                    <Button {...pickImageStyle}>
-                        <Entypo name="camera" size={responsiveSize[32]} color={colors.primaryContrast} />
-                    </Button>
-                    <TextInput
-                        style={[
-                            usernameInputStyle,
-                            {
-                                backgroundColor: colors.secondaryBg,
-                                color: colors.primaryText
-                            }
-                        ]}
-                        placeholderTextColor={colors.primaryText}
-                        placeholder='Nome do novo jogador'
-                        value={username}
-                        onChangeText={setUsername}
-                    />
-
-                    <Button variant='primary' {...createPlayerBtnStyle} onPress={handleAddPlayer}>
-                        <Text variant='buttonPrimary'>Criar</Text>
-                    </Button>
+                        <Button variant='primary' {...createPlayerBtnStyle} onPress={handleAddPlayer}>
+                            <Text variant='buttonPrimary'>Criar</Text>
+                        </Button>
+                    </ScrollView>
                 </Box>
             </Box>
+
         </Modal>
     )
 }
