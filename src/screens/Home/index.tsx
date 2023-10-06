@@ -1,5 +1,5 @@
 import Box from '@/components/Box';
-import React from 'react';
+import React, { useState } from 'react';
 import { containerStyle, currentPlayersStyle } from './style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@shopify/restyle';
@@ -7,19 +7,26 @@ import { ThemeType } from '@/theme';
 import CurrentPlayer from './components/CurrentPlayer';
 import Text from '@/components/Text';
 import Pontuation from './components/Pontuation';
+import Queue from './components/Queue';
+import { PlayerType } from '@/types/Player';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/feature/store';
 
 
 const Home: React.FC = () => {
     const { top, bottom } = useSafeAreaInsets()
     const theme = useTheme<ThemeType>()
+    const currentPlayers = useSelector((state: RootState) => state.playersPlayings)
 
     return (
         <Box {...containerStyle} style={{ paddingTop: top + theme.spacing[20] }}>
             <Box {...currentPlayersStyle}>
-                <CurrentPlayer playerName='Cbum' />
+                <CurrentPlayer player={currentPlayers[0]} />
                 <Pontuation />
-                <CurrentPlayer playerName='Vinicius' inverse />
+                <CurrentPlayer player={currentPlayers[1]} inverse />
             </Box>
+
+            <Queue />
         </Box>
     )
 }

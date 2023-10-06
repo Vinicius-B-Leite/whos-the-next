@@ -6,17 +6,17 @@ import { AntDesign } from '@expo/vector-icons';
 import { textShadow, useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import Button from '@/components/Button';
-import { responsiveSize } from '@/theme/responsiveSize';
+import ImageNotFound from '@/assets/imageNotFound.png';
 import Text from '@/components/Text';
+import { PlayerType } from '@/types/Player';
 
 
 type Props = {
-    inverse?: boolean;
-    playerName: string;
+    inverse?: boolean
+    player: PlayerType
 }
-const CurrentPlayer: React.FC<Props> = ({ inverse = false, playerName }) => {
+const CurrentPlayer: React.FC<Props> = ({ inverse = false, player }) => {
     const theme = useTheme<ThemeType>()
-
 
     return (
         <Box {...boxStyle} flexDirection={inverse ? 'row-reverse' : 'row'}>
@@ -38,10 +38,10 @@ const CurrentPlayer: React.FC<Props> = ({ inverse = false, playerName }) => {
             </Box>
             <Box >
                 <Image
-                    source={{ uri: 'https://i.ytimg.com/vi/bORSlhPKSHA/maxresdefault.jpg' }}
+                    source={(player && player.avatarUrl) ? { uri: player.avatarUrl } : ImageNotFound}
                     style={{ ...imageStyle }}
                 />
-                <Text {...textStyle} numberOfLines={1} >{playerName}</Text>
+                <Text {...textStyle} numberOfLines={1} >{player?.playerName}</Text>
             </Box>
         </Box>
     )
