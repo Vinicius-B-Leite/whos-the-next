@@ -14,7 +14,7 @@ import { RootState } from '@/feature/store';
 
 
 const Home: React.FC = () => {
-    const { top, bottom } = useSafeAreaInsets()
+    const { top } = useSafeAreaInsets()
     const theme = useTheme<ThemeType>()
     const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
 
