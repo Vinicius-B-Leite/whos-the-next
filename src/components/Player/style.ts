@@ -2,8 +2,9 @@ import { BoxType } from "@/components/Box";
 import { responsiveSize } from "@/theme/responsiveSize";
 import { ImageStyle } from "react-native";
 import { TextType } from "@/components/Text";
+import { ButtonType } from "../Button";
 
-export const boxStyle: BoxType = {
+export const boxStyle: ButtonType = {
     backgroundColor: 'secondaryBg',
     flexDirection: 'row',
     borderTopWidth: 2,

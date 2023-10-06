@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { playerReducer } from '@/feature/players'
+import { playersQueueReducer } from '@/feature/players'
+import { playersPlayingReducer } from './playersPlaying'
+
+
 export const store = configureStore({
     reducer: {
-        player: playerReducer
+        nextPlayerQueue: playersQueueReducer,
+        playersPlayings: playersPlayingReducer
     },
 })
 

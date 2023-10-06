@@ -9,17 +9,25 @@ const initialState: PlayerType[] = [
         losses: 0,
         playerName: 'Cbum',
         wins: 0,
-    }
+    },
+    {
+        id: '2',
+        losses: 0,
+        playerName: 'Cbum99',
+        wins: 0,
+    },
 ]
 
-export const playersSlice = createSlice({
+export const playersQueueSlice = createSlice({
     name: 'players',
     initialState,
     reducers: {
-
+        removeNextPlayer: (state) => {
+            state.splice(0, 1)
+        }
     },
 })
 
-export const { } = playersSlice.actions
+export const { removeNextPlayer } = playersQueueSlice.actions
 
-export const playerReducer = playersSlice.reducer
+export const playersQueueReducer = playersQueueSlice.reducer

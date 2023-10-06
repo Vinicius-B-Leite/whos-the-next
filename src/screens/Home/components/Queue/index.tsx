@@ -12,7 +12,7 @@ import { RootState } from '@/feature/store';
 
 const Queue: React.FC = () => {
     const navigation = useNavigation()
-    const players = useSelector((state: RootState) => state.player)
+    const players = useSelector((state: RootState) => state.nextPlayerQueue)
 
 
     return (
