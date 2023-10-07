@@ -10,6 +10,7 @@ export const darkPallete = {
     darkSecondaryContrast: '#065506',
 
     primaryText: '#FFFFFF',
+    secondaryText: '#636363',
 
     alert: '#FF0000',
     darkAlert: '#4d0000',
