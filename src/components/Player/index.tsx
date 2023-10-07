@@ -17,19 +17,21 @@ type Props = PlayerType & {
 }
 
 const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayer, ...player }) => {
-    const tap = Gesture.Tap().numberOfTaps(2).onStart(() => {
+    const tap = Gesture.Tap().numberOfTaps(2).onEnd(() => {
         runOnJS(onSelectPlayer)(player)
-    })
+    }).withTestId('tap')
 
 
     return (
         <Swipeable
+            testID='swipeable'
             renderLeftActions={() =>
                 <LeftSwipeable onClickIcon={() => deletePlayer(player)} />}
         >
-            <GestureDetector gesture={tap}>
+            <GestureDetector gesture={tap} >
                 <Button {...boxStyle} >
                     <Image
+                        testID='avatar'
                         source={player.avatarUrl ? { uri: player.avatarUrl } : ImageNotFound}
                         style={{ ...imageStyle }}
                     />

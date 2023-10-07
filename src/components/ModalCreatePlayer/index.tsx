@@ -8,7 +8,6 @@ import { useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import { responsiveSize } from '@/theme/responsiveSize';
 import Text from '../Text';
-import { useDispatch } from 'react-redux';
 import { getPlayers, setPlasyers } from '@/storage/playersStorage';
 import { PlayerType } from '@/types/Player';
 import uuid from 'react-native-uuid';
