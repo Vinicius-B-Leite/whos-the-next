@@ -11,3 +11,14 @@ export function getPlayers() {
 
     return players ? JSON.parse(players) as PlayerType[] : null
 }
+
+export function deletePlayer(player: PlayerType) {
+    let allPlayers = getPlayers()
+    if (!allPlayers) return
+
+    const indexOfPlayer = allPlayers.findIndex(p => p.id === player.id)
+    allPlayers.splice(indexOfPlayer, 1)
+    setPlasyers(allPlayers)
+
+    return allPlayers
+}

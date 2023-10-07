@@ -10,7 +10,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { TabType } from '@/routes/types/tabType';
 import { KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { getPlayers, setPlasyers } from '@/storage/playersStorage';
+import { deletePlayer, getPlayers, setPlasyers } from '@/storage/playersStorage';
 import { FlatList } from 'react-native-gesture-handler';
 import Player from '@/components/Player';
 import { PlayerType } from '@/types/Player';
@@ -39,6 +39,11 @@ const AddPlayer: React.FC = () => {
         navigation.goBack()
     }
 
+    const handleDeletePlayer = (player: PlayerType) => {
+        const playerListWithoutDeletedPlayer = deletePlayer(player)
+
+        setAllPlayer(playerListWithoutDeletedPlayer!)
+    }
     const playersFilteredByName = useMemo(() => {
         return allPlayers.filter(p => p.playerName.toLowerCase().includes(playerName.toLowerCase()))
     }, [playerName, allPlayers])
@@ -68,7 +73,11 @@ const AddPlayer: React.FC = () => {
                 contentContainerStyle={{ paddingTop: spacing[22] }}
                 data={playerName ? playersFilteredByName : allPlayers}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <Player {...item} onSelectPlayer={onSelectPlayer} />}
+                renderItem={({ item }) => <Player
+                    {...item}
+                    onSelectPlayer={onSelectPlayer}
+                    deletePlayer={handleDeletePlayer}
+                />}
             />
 
             <Box {...createPlayerStyle} style={{ bottom: bottom + spacing[24] }}>

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
 import { initGame, selectNextPlayer } from '@/feature/playersPlaying';
-import { addNewPlayerOnQueue, removeNextPlayerOnQueue } from '@/feature/playersOnQueue';
+import { addNewPlayerOnQueue, removePlayerOnQueue } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
 
 
@@ -24,12 +24,12 @@ const Queue: React.FC = () => {
     const selectNextPlayerOfQueue = (player: PlayerType) => {
         if (player1.id === '1') {
             dispatch(initGame(player))
-            dispatch(removeNextPlayerOnQueue())
+            dispatch(removePlayerOnQueue({ index: 0 }))
             return
         }
         if (player2.id === '2') {
             dispatch(initGame(player))
-            dispatch(removeNextPlayerOnQueue())
+            dispatch(removePlayerOnQueue({ index: 0 }))
             return
         }
         if (playersInQueue[0].id === player.id) {
@@ -41,10 +41,15 @@ const Queue: React.FC = () => {
             if ([player1.id, player2.id].includes(player.id)) return
 
             dispatch(selectNextPlayer({ nextPlayer: player }))
-            dispatch(removeNextPlayerOnQueue())
+            dispatch(removePlayerOnQueue({ index: 0 }))
 
-            console.log()
         }
+    }
+
+    const handleRemovePlayerFromQueue = (player: PlayerType) => {
+        const indexPlayer = playersInQueue.findIndex(p => p.id === player.id)
+        if (!indexPlayer) return
+        dispatch(removePlayerOnQueue({ index: indexPlayer }))
     }
 
     return (
@@ -63,7 +68,11 @@ const Queue: React.FC = () => {
             <FlatList
                 data={playersInQueue}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <Player {...item} onSelectPlayer={selectNextPlayerOfQueue} />}
+                renderItem={({ item }) => <Player
+                    {...item}
+                    onSelectPlayer={selectNextPlayerOfQueue}
+                    deletePlayer={handleRemovePlayerFromQueue}
+                />}
             />
         </Box>
     )

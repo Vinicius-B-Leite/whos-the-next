@@ -9,8 +9,8 @@ export const playersQueueSlice = createSlice({
     name: 'players',
     initialState,
     reducers: {
-        removeNextPlayerOnQueue: (state) => {
-            state.splice(0, 1)
+        removePlayerOnQueue: (state, actions: PayloadAction<{ index: number }>) => {
+            state.splice(actions.payload.index, 1)
         },
         addNewPlayerOnQueue: (state, actions: PayloadAction<PlayerType>) => {
             state.push(actions.payload)
@@ -18,6 +18,6 @@ export const playersQueueSlice = createSlice({
     },
 })
 
-export const { removeNextPlayerOnQueue, addNewPlayerOnQueue } = playersQueueSlice.actions
+export const { removePlayerOnQueue, addNewPlayerOnQueue } = playersQueueSlice.actions
 
 export const playersQueueReducer = playersQueueSlice.reducer

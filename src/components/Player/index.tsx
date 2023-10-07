@@ -11,23 +11,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button';
 import { RootState } from '@/feature/store';
 import { selectNextPlayer } from '@/feature/playersPlaying';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 type Props = PlayerType & {
-    onSelectPlayer: (player: PlayerType) => void
+    onSelectPlayer: (player: PlayerType) => void,
+    deletePlayer: (player: PlayerType) => void
 }
 
-const Player: React.FC<Props> = ({ onSelectPlayer, ...player }) => {
+const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayer, ...player }) => {
+    const tap = Gesture.Tap().numberOfTaps(2).onStart(() => {
+        onSelectPlayer(player)
+    })
 
 
     return (
-        <Swipeable renderLeftActions={() => <LeftSwipeable />}>
-            <Button {...boxStyle} onPress={() => onSelectPlayer(player)}>
-                <Image
-                    source={player.avatarUrl ? { uri: player.avatarUrl } : ImageNotFound}
-                    style={{ ...imageStyle }}
-                />
-                <Text {...textStyle}>{player.playerName}</Text>
-            </Button>
+        <Swipeable
+            renderLeftActions={() =>
+                <LeftSwipeable onClickIcon={() => deletePlayer(player)} />}
+        >
+            <GestureDetector gesture={tap}>
+                <Button {...boxStyle} >
+                    <Image
+                        source={player.avatarUrl ? { uri: player.avatarUrl } : ImageNotFound}
+                        style={{ ...imageStyle }}
+                    />
+                    <Text {...textStyle}>{player.playerName}</Text>
+                </Button>
+            </GestureDetector>
         </Swipeable>
     )
 }
