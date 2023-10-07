@@ -2,23 +2,22 @@ import Box from '@/components/Box';
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { containerStyle, createPlayerStyle, headerStyle, inputStyle } from './style';
-import { all, useTheme } from '@shopify/restyle';
+import { useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import { responsiveSize } from '@/theme/responsiveSize';
 import Button from '@/components/Button';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { TabType } from '@/routes/types/tabType';
-import { KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { TextInput, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { deletePlayer, getPlayers, setPlasyers } from '@/storage/playersStorage';
 import { FlatList } from 'react-native-gesture-handler';
 import { PlayerType } from '@/types/Player';
-import Animated, { FadeInDown, FadeOutDown, FadingTransition, Layout, SlideOutLeft, SlideOutRight } from 'react-native-reanimated'
-import { useDispatch, useSelector } from 'react-redux';
+import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
+import { useDispatch } from 'react-redux';
 import { addNewPlayerOnQueue } from '@/feature/playersOnQueue';
 import ModalCreatePlayer from '@/components/ModalCreatePlayer';
 import Player from '@/components/Player';
 import useTabBarStyle from '@/hooks/useTabBarStyle';
+import { useAppNavigation } from '@/hooks/useAppNavigation';
 
 
 
@@ -29,7 +28,7 @@ const AddPlayer: React.FC = () => {
 
     const dispatch = useDispatch()
 
-    const navigation = useNavigation<NavigationProp<TabType>>()
+    const navigation = useAppNavigation()
 
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])

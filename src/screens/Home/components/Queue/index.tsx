@@ -5,22 +5,22 @@ import Text from '@/components/Text';
 import Button from '@/components/Button';
 import { FlatList } from 'react-native';
 import Player from '@/components/Player';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/feature/store';
 import { TabType } from '@/routes/types/tabType';
 import { initGame, selectNextPlayer } from '@/feature/playersPlaying';
 import { addNewPlayerOnQueue, removePlayerOnQueue } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
-import Animated, { FadeIn, FadeInDown, FadeOutDown, FadeOutRight, FadeOutUp, FadingTransition, SlideOutLeft, SlideOutRight } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeOutUp } from 'react-native-reanimated';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppNavigation } from '@/hooks/useAppNavigation';
 
 
 const Queue: React.FC = () => {
-    const navigation = useNavigation<NavigationProp<TabType>>()
-    const playersInQueue = useSelector((state: RootState) => state.nextPlayerQueue)
-    const { player1, player2 } = useSelector((state: RootState) => state.playersPlayings)
+    const navigation = useAppNavigation()
+    const playersInQueue = useAppSelector((state) => state.nextPlayerQueue)
+    const { player1, player2 } = useAppSelector((state) => state.playersPlayings)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const selectNextPlayerOfQueue = (player: PlayerType) => {
         if (player1.id === '1') {
