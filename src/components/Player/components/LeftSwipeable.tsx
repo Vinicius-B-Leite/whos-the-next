@@ -3,7 +3,6 @@ import { ThemeType } from '@/theme';
 import { responsiveSize } from '@/theme/responsiveSize';
 import { useTheme } from '@shopify/restyle';
 import React from 'react';
-import { Animated, View } from 'react-native';
 import { RectButton, Swipeable } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 

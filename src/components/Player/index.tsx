@@ -7,10 +7,7 @@ import { Image } from 'react-native';
 import LeftSwipeable from './components/LeftSwipeable';
 import { PlayerType } from '@/types/Player';
 import ImageNotFound from '@/assets/imageNotFound.png';
-import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button';
-import { RootState } from '@/feature/store';
-import { selectNextPlayer } from '@/feature/playersPlaying';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
