@@ -1,4 +1,4 @@
-import Box from '@/components/Box';
+import Box, { AnimatedBox } from '@/components/Box';
 import React, { useState } from 'react';
 import { containerStyle, currentPlayersStyle } from './style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,6 +11,7 @@ import Queue from './components/Queue';
 import { PlayerType } from '@/types/Player';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/feature/store';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 
 const Home: React.FC = () => {
@@ -21,11 +22,11 @@ const Home: React.FC = () => {
     return (
         <Box {...containerStyle} style={{ paddingTop: top + theme.spacing[20] }}>
 
-            <Box {...currentPlayersStyle}>
+            <AnimatedBox {...currentPlayersStyle} entering={FadeIn.duration(400)}>
                 <CurrentPlayer player={player1} />
                 <Pontuation />
                 <CurrentPlayer player={player2} inverse />
-            </Box>
+            </AnimatedBox>
 
             <Queue />
         </Box>

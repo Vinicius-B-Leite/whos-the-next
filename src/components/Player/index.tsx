@@ -12,6 +12,7 @@ import Button from '../Button';
 import { RootState } from '@/feature/store';
 import { selectNextPlayer } from '@/feature/playersPlaying';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { runOnJS } from 'react-native-reanimated';
 
 type Props = PlayerType & {
     onSelectPlayer: (player: PlayerType) => void,
@@ -20,7 +21,7 @@ type Props = PlayerType & {
 
 const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayer, ...player }) => {
     const tap = Gesture.Tap().numberOfTaps(2).onStart(() => {
-        onSelectPlayer(player)
+        runOnJS(onSelectPlayer)(player)
     })
 
 

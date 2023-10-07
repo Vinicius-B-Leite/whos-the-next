@@ -1,4 +1,4 @@
-import Box from '@/components/Box';
+import Box, { AnimatedBox } from '@/components/Box';
 import React from 'react';
 import { headerStyle, listTitle, queueStyle } from './style';
 import Text from '@/components/Text';
@@ -12,6 +12,7 @@ import { TabType } from '@/routes/types/tabType';
 import { initGame, selectNextPlayer } from '@/feature/playersPlaying';
 import { addNewPlayerOnQueue, removePlayerOnQueue } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
+import Animated, { FadeIn, FadeInDown, FadeOutDown, FadeOutRight, FadeOutUp, FadingTransition, SlideOutLeft, SlideOutRight } from 'react-native-reanimated';
 
 
 const Queue: React.FC = () => {
@@ -48,12 +49,12 @@ const Queue: React.FC = () => {
 
     const handleRemovePlayerFromQueue = (player: PlayerType) => {
         const indexPlayer = playersInQueue.findIndex(p => p.id === player.id)
-        if (!indexPlayer) return
+        if (indexPlayer == -1) return
         dispatch(removePlayerOnQueue({ index: indexPlayer }))
     }
 
     return (
-        <Box {...queueStyle}>
+        <AnimatedBox {...queueStyle} entering={FadeIn.duration(650)}>
             <Box {...headerStyle}>
                 <Text {...listTitle}>Próximo</Text>
                 <Button
@@ -68,13 +69,18 @@ const Queue: React.FC = () => {
             <FlatList
                 data={playersInQueue}
                 keyExtractor={({ id }) => id}
-                renderItem={({ item }) => <Player
-                    {...item}
-                    onSelectPlayer={selectNextPlayerOfQueue}
-                    deletePlayer={handleRemovePlayerFromQueue}
-                />}
+                renderItem={({ item, index }) =>
+                    <Animated.View
+                        entering={FadeInDown.duration(300 * index)}
+                        exiting={FadeOutUp.duration(500)}>
+                        <Player
+                            {...item}
+                            onSelectPlayer={selectNextPlayerOfQueue}
+                            deletePlayer={handleRemovePlayerFromQueue}
+                        />
+                    </Animated.View>}
             />
-        </Box>
+        </AnimatedBox>
     )
 }
 
