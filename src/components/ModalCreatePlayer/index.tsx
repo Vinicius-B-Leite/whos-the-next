@@ -51,11 +51,11 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
             visible={visible}
             onRequestClose={onRequestClose}>
 
-            <TouchableOpacity
-                style={[closeBtnStyle, { backgroundColor: colors.tranparentBg, }]}
-                onPress={onRequestClose} />
 
             <Box {...mainContainer}>
+                <TouchableOpacity
+                    style={[closeBtnStyle, { backgroundColor: colors.tranparentBg, }]}
+                    onPress={onRequestClose} />
                 <Box height='55%' width={'100%'}>
                     <ScrollView
                         style={[{ backgroundColor: colors.bg, }, containerStyle]}
@@ -69,10 +69,10 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
                                 {
                                     backgroundColor: colors.secondaryBg,
                                     color: colors.primaryText,
-                                    fontSize: responsiveSize[14]
+                                    fontSize: responsiveSize[14],
                                 }
                             ]}
-                            placeholderTextColor={colors.primaryText}
+                            placeholderTextColor={colors.secondaryText}
                             placeholder='Nome do novo jogador'
                             value={username}
                             onChangeText={setUsername}

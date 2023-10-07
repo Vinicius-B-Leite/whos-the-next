@@ -7,7 +7,8 @@ import { responsiveSize } from "@/theme/responsiveSize";
 export const mainContainer: BoxType = {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    width: "100%",
+    height: "100%",
 }
 export const closeBtnStyle: StyleProp<ViewStyle> = {
     position: "absolute",
@@ -29,7 +30,7 @@ export const pickImageStyle: ButtonType = {
     backgroundColor: 'secondaryBg',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 80,
+    borderRadius: 'full',
     width: '40%',
     paddingVertical: 32,
     alignSelf: 'center',

@@ -1,8 +1,8 @@
 import Box from '@/components/Box';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { containerStyle, createPlayerStyle, headerStyle, inputStyle } from './style';
-import { useTheme } from '@shopify/restyle';
+import { all, useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import { responsiveSize } from '@/theme/responsiveSize';
 import Button from '@/components/Button';
@@ -31,13 +31,17 @@ const AddPlayer: React.FC = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])
-
+    const [playerName, setPlayerName] = useState('')
 
 
     const onSelectPlayer = (player: PlayerType) => {
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
     }
+
+    const playersFilteredByName = useMemo(() => {
+        return allPlayers.filter(p => p.playerName.toLowerCase().includes(playerName.toLowerCase()))
+    }, [playerName, allPlayers])
 
     return (
         <Box {...containerStyle} style={{ paddingTop: top + spacing[16] }}>
@@ -46,15 +50,23 @@ const AddPlayer: React.FC = () => {
                     <AntDesign name="arrowleft" size={responsiveSize[24]} color={colors.primaryText} />
                 </Button>
                 <TextInput
-                    style={[inputStyle, { color: colors.primaryText, borderBottomColor: colors.primaryText }]}
+                    style={[
+                        inputStyle,
+                        {
+                            color: colors.primaryText,
+                            borderBottomColor: colors.primaryText,
+                            paddingBottom: spacing[10]
+                        }]}
                     placeholder='Pesquise o jogador'
-                    placeholderTextColor={colors.primaryText}
+                    placeholderTextColor={colors.secondaryText}
+                    value={playerName}
+                    onChangeText={setPlayerName}
                 />
             </Box>
 
             <FlatList
                 contentContainerStyle={{ paddingTop: spacing[22] }}
-                data={allPlayers}
+                data={playerName ? playersFilteredByName : allPlayers}
                 keyExtractor={({ id }) => id}
                 renderItem={({ item }) => <Player {...item} onSelectPlayer={onSelectPlayer} />}
             />
