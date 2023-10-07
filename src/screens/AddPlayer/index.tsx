@@ -8,7 +8,7 @@ import { responsiveSize } from '@/theme/responsiveSize';
 import Button from '@/components/Button';
 import { TextInput, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { deletePlayer, getPlayers, setPlasyers } from '@/storage/playersStorage';
+import { deletePlayerStorage, getPlayerStorage, setPlayerStorage } from '@/storage/playersStorage';
 import { FlatList } from 'react-native-gesture-handler';
 import { PlayerType } from '@/types/Player';
 import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'
@@ -31,7 +31,7 @@ const AddPlayer: React.FC = () => {
     const navigation = useAppNavigation()
 
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayers() || [])
+    const [allPlayers, setAllPlayer] = useState<PlayerType[]>(getPlayerStorage() || [])
     const [playerName, setPlayerName] = useState('')
 
     useLayoutEffect(() => {
@@ -51,8 +51,8 @@ const AddPlayer: React.FC = () => {
         navigation.goBack()
     }
 
-    const handleDeletePlayer = (player: PlayerType) => {
-        const playerListWithoutDeletedPlayer = deletePlayer(player)
+    const handledeletePlayerStorage = (player: PlayerType) => {
+        const playerListWithoutDeletedPlayer = deletePlayerStorage(player)
 
         setAllPlayer(playerListWithoutDeletedPlayer!)
     }
@@ -92,7 +92,7 @@ const AddPlayer: React.FC = () => {
                         <Player
                             {...item}
                             onSelectPlayer={onSelectPlayer}
-                            deletePlayer={handleDeletePlayer}
+                            deletePlayerStorage={handledeletePlayerStorage}
                         />
                     </Animated.View>
                 )}

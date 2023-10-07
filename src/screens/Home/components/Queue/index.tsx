@@ -76,7 +76,7 @@ const Queue: React.FC = () => {
                         <Player
                             {...item}
                             onSelectPlayer={selectNextPlayerOfQueue}
-                            deletePlayer={handleRemovePlayerFromQueue}
+                            deletePlayerStorage={handleRemovePlayerFromQueue}
                         />
                     </Animated.View>}
             />

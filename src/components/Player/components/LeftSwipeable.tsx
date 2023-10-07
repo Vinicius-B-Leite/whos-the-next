@@ -23,7 +23,7 @@ const LeftSwipeable: React.FC<Props> = ({ onClickIcon }) => {
                 backgroundColor: colors.darkAlert,
             }}
             onPress={onClickIcon}>
-            <Feather name="trash-2" size={responsiveSize[26]} color={colors.alert} />
+            <Feather testID='trashIcon' name="trash-2" size={responsiveSize[26]} color={colors.alert} />
         </RectButton>
     );
 }
