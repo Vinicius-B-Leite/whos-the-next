@@ -13,6 +13,9 @@ export const playersQueueSlice = createSlice({
             state.splice(actions.payload.index, 1)
         },
         addNewPlayerOnQueue: (state, actions: PayloadAction<PlayerType>) => {
+            const playerAlreadyOnQueue = state.find(p => p.id === actions.payload.id)
+
+            if (playerAlreadyOnQueue) return
             state.push(actions.payload)
         },
     },
