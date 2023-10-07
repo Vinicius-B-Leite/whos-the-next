@@ -8,6 +8,7 @@ import { DefaultTheme } from '@react-navigation/native';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import { responsiveSize } from '@/theme/responsiveSize';
 import { TabType } from '@/routes/types/tabType';
+import useTabBarStyle from '@/hooks/useTabBarStyle';
 
 const Tab = createBottomTabNavigator<TabType>()
 
@@ -15,18 +16,13 @@ const TabRoutes: React.FC = () => {
     const { colors, spacing, borderRadii } = useTheme<ThemeType>()
     DefaultTheme.colors.background = colors.secondaryBg
 
+    const tabBarStyle = useTabBarStyle()
     return (
         <Tab.Navigator
+            id='tab'
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: {
-                    backgroundColor: colors.bg,
-                    borderTopWidth: 0,
-                    margin: spacing[24],
-                    borderRadius: borderRadii[14],
-                    height: responsiveSize[56],
-                    paddingBottom: 0
-                },
+                tabBarStyle: tabBarStyle,
                 tabBarActiveTintColor: colors.primaryContrast,
                 tabBarInactiveTintColor: colors.darkPrimaryContrast,
                 tabBarShowLabel: false,
