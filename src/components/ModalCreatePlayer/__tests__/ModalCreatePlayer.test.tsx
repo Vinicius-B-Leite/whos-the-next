@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react-native";
 import ModalCreatePlayer from "..";
 import { customRender } from "@/utils/customRender";
-import { getPlayers } from "@/storage/playersStorage";
+import { getPlayerStorage } from "@/storage/playersStorage";
 
 
 describe('ModalCreatePlayer', () => {
@@ -26,7 +26,7 @@ describe('ModalCreatePlayer', () => {
 
         fireEvent.press(createButton)
 
-        const playersInStorage = getPlayers()
+        const playersInStorage = getPlayerStorage()
 
         expect(playersInStorage).toBeNull()
     })
@@ -45,7 +45,7 @@ describe('ModalCreatePlayer', () => {
             fireEvent.changeText(input, 'Player Teste')
             fireEvent.press(createButton)
 
-            const playersInStorage = getPlayers()
+            const playersInStorage = getPlayerStorage()
             const playerIsInStorage = playersInStorage!.findIndex(p => p.playerName === 'Player Teste') > -1
 
             expect(playerIsInStorage).toBeTruthy()

@@ -8,7 +8,7 @@ import { useTheme } from '@shopify/restyle';
 import { ThemeType } from '@/theme';
 import { responsiveSize } from '@/theme/responsiveSize';
 import Text from '../Text';
-import { getPlayers, setPlasyers } from '@/storage/playersStorage';
+import { getPlayerStorage, setPlayerStorage } from '@/storage/playersStorage';
 import { PlayerType } from '@/types/Player';
 import uuid from 'react-native-uuid';
 
@@ -29,7 +29,7 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
     const handleAddPlayer = () => {
         if (!username) return
 
-        const allPlayers = getPlayers()
+        const allPlayers = getPlayerStorage()
         const newPlayer: PlayerType = {
             id: uuid.v4().toString(),
             losses: 0,
@@ -37,7 +37,7 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
             playerName: username,
             avatarUrl: ''
         }
-        setPlasyers(allPlayers ? [...allPlayers, newPlayer] : [newPlayer])
+        setPlayerStorage(allPlayers ? [...allPlayers, newPlayer] : [newPlayer])
         onSucessPlayerCreated(newPlayer)
         onRequestClose()
         setUsername('')

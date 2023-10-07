@@ -13,10 +13,10 @@ import { runOnJS } from 'react-native-reanimated';
 
 type Props = PlayerType & {
     onSelectPlayer: (player: PlayerType) => void,
-    deletePlayer: (player: PlayerType) => void
+    deletePlayerStorage: (player: PlayerType) => void
 }
 
-const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayer, ...player }) => {
+const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayerStorage, ...player }) => {
     const tap = Gesture.Tap().numberOfTaps(2).onEnd(() => {
         runOnJS(onSelectPlayer)(player)
     }).withTestId('tap')
@@ -26,7 +26,7 @@ const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayer, ...player }) =>
         <Swipeable
             testID='swipeable'
             renderLeftActions={() =>
-                <LeftSwipeable onClickIcon={() => deletePlayer(player)} />}
+                <LeftSwipeable onClickIcon={() => deletePlayerStorage(player)} />}
         >
             <GestureDetector gesture={tap} >
                 <Button {...boxStyle} >

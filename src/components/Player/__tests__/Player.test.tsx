@@ -12,7 +12,7 @@ describe('Player', () => {
         const { UNSAFE_root } = customRender(
             <Player
                 {...mock.playerMock}
-                deletePlayer={jest.fn}
+                deletePlayerStorage={jest.fn}
                 onSelectPlayer={jest.fn} />
         )
 
@@ -24,7 +24,7 @@ describe('Player', () => {
         const { } = customRender(
             <Player
                 {...mock.playerMock}
-                deletePlayer={jest.fn}
+                deletePlayerStorage={jest.fn}
                 onSelectPlayer={onSelectPlayer} />
         )
 
@@ -37,13 +37,13 @@ describe('Player', () => {
 
         expect(onSelectPlayer).toBeCalled()
     })
-    it('should called deletePlayer when double tap', async () => {
-        const deletePlayer = jest.fn()
+    it('should called deletePlayerStorage when double tap', async () => {
+        const deletePlayerStorage = jest.fn()
 
         const { getByTestId, findByTestId } = customRender(
             <Player
                 {...mock.playerMock}
-                deletePlayer={deletePlayer}
+                deletePlayerStorage={deletePlayerStorage}
                 onSelectPlayer={jest.fn} />
         )
 
@@ -61,14 +61,14 @@ describe('Player', () => {
         fireEvent.press(trashIcon)
 
         await act(() => {
-            expect(deletePlayer).toBeCalled()
+            expect(deletePlayerStorage).toBeCalled()
         })
     })
     it('should NOT render the uri if avatarUrl was empty', () => {
         const { getByTestId } = customRender(
             <Player
                 {...mock.playerMock}
-                deletePlayer={jest.fn}
+                deletePlayerStorage={jest.fn}
                 onSelectPlayer={jest.fn} />
         )
         const avatar = getByTestId('avatar')
