@@ -7,6 +7,7 @@ import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolki
 
 import { playersQueueReducer } from '@/feature/playersOnQueue'
 import { playersPlayingReducer } from '@/feature/playersPlaying'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 const rootReducer = combineReducers({
     nextPlayerQueue: playersQueueReducer,
@@ -31,9 +32,11 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 const customRender = (ui: React.ReactElement, { preloadedState = {}, store = configureStore({ reducer: rootReducer, preloadedState }), ...rest }: ExtendedRenderOptions = {}) => {
     const Wrapper = ({ children }: PropsWithChildren<{}>) => (
         <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                {children}
-            </ThemeProvider>
+            <SafeAreaProvider>
+                <ThemeProvider theme={theme}>
+                    {children}
+                </ThemeProvider>
+            </SafeAreaProvider>
         </Provider>
     )
 

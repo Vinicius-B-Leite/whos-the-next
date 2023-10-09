@@ -8,7 +8,7 @@ import { responsiveSize } from '@/theme/responsiveSize';
 import Button from '@/components/Button';
 import { TextInput, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { deletePlayerStorage, getPlayerStorage, setPlayerStorage } from '@/storage/playersStorage';
+import { deletePlayerStorage, getPlayerStorage } from '@/storage/playersStorage';
 import { FlatList } from 'react-native-gesture-handler';
 import { PlayerType } from '@/types/Player';
 import Animated, { FadeInDown, FadeOutDown } from 'react-native-reanimated'

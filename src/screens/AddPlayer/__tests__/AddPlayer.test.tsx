@@ -1,0 +1,76 @@
+import { customRender } from "@/utils/customRender";
+import AddPlayer from "..";
+import { mock } from "./mocks";
+import { fireEvent } from "@testing-library/react-native";
+import { store } from "@/feature/store";
+import { fireGestureHandler, getByGestureTestId } from 'react-native-gesture-handler/jest-utils'
+import { PanGesture, State, TapGesture } from "react-native-gesture-handler";
+
+const mockedGoBack = jest.fn();
+
+jest.mock('@react-navigation/native', () => ({
+    ...jest.requireActual('@react-navigation/native'),
+    useNavigation: () => ({
+        goBack: mockedGoBack,
+        getParent: () => ({
+            setOptions: jest.fn
+        }),
+        addListener: jest.fn,
+    })
+}));
+
+
+jest.mock('@/storage/playersStorage', () => ({
+    getPlayerStorage: () => mock.playerMock,
+    deletePlayerStorage: () => [mock.playerMock[1]]
+}))
+
+
+describe('Add Player', () => {
+    it('should render correctly with player list', () => {
+        const { getByText } = customRender(<AddPlayer />)
+
+        const player = getByText('Test')
+        expect(player).toBeTruthy()
+    })
+    it('should select player with double tap and go back home', () => {
+        const { } = customRender(<AddPlayer />)
+
+        const player = getByGestureTestId('tap')
+        fireGestureHandler<TapGesture>(player, [
+            { state: State.BEGAN },
+            { state: State.ACTIVE },
+            { state: State.END },
+        ])
+
+        expect(mockedGoBack).toBeCalled()
+    })
+    it('should filter players by player name', () => {
+        const { getByPlaceholderText, getByText } = customRender(<AddPlayer />)
+
+
+        const textInput = getByPlaceholderText('Pesquise o jogador')
+        fireEvent.changeText(textInput, 'Test 2')
+
+        expect(getByText('Test 2')).toBeTruthy()
+
+    })
+    it('should deelete players when swipe is clicked', async () => {
+        const { getAllByTestId, findAllByTestId, queryByText } = customRender(<AddPlayer />)
+
+        const button = getAllByTestId('swipeable')
+
+        fireGestureHandler<PanGesture>(button[0], [
+            { state: State.BEGAN, translationX: 0 },
+            { state: State.ACTIVE, translationX: 50 },
+            { translationX: 60 },
+            { translationX: 60 },
+            { state: State.END, translationX: 60 },
+        ])
+
+        const trashIcon = await findAllByTestId('trashIcon')
+        fireEvent.press(trashIcon[0])
+
+        expect(queryByText('Test')).toBeNull()
+    })
+})
