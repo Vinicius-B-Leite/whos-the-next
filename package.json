@@ -46,6 +46,9 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "setupFiles": [
+      "<rootDir>/jest-setup.js"
+    ],
     "roots": [
       "<rootDir>/src"
     ],
