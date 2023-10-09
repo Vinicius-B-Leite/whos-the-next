@@ -21,6 +21,7 @@ jest.mock('@react-navigation/native', () => ({
 
 
 jest.mock('@/storage/playersStorage', () => ({
+    ...jest.requireActual('@/storage/playersStorage'),
     getPlayerStorage: () => mock.playerMock,
     deletePlayerStorage: () => [mock.playerMock[1]]
 }))
@@ -72,5 +73,43 @@ describe('Add Player', () => {
         fireEvent.press(trashIcon[0])
 
         expect(queryByText('Test')).toBeNull()
+    })
+    it('should open ModalCreatePlayer when plus icon is clicked', async () => {
+        const { findByTestId, getByText } = customRender(<AddPlayer />)
+
+        const plusIcon = await findByTestId('plusIcon')
+        fireEvent.press(plusIcon)
+
+        const buttonModal = getByText('Criar')
+
+        expect(buttonModal).toBeTruthy()
+    })
+    it('should NOT create player when player name is provided', async () => {
+        const { findByTestId, getByText, queryByText } = customRender(<AddPlayer />)
+
+        const plusIcon = await findByTestId('plusIcon')
+        fireEvent.press(plusIcon)
+
+        const buttonModal = getByText('Criar')
+
+        fireEvent.press(buttonModal)
+
+
+        expect(queryByText('Player test')).toBeNull()
+    })
+    it('should create player when player name is provided', async () => {
+        const { findByTestId, getByText, getByPlaceholderText } = customRender(<AddPlayer />)
+
+        const plusIcon = await findByTestId('plusIcon')
+        fireEvent.press(plusIcon)
+
+        const playerNameInput = getByPlaceholderText('Nome do novo jogador')
+        const buttonModal = getByText('Criar')
+
+        fireEvent.changeText(playerNameInput, 'Player test')
+        fireEvent.press(buttonModal)
+
+
+        expect(getByText('Player test')).toBeTruthy()
     })
 })

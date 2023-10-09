@@ -100,7 +100,12 @@ const AddPlayer: React.FC = () => {
 
             <Box {...createPlayerStyle} style={{ bottom: bottom + spacing[24] }}>
                 <TouchableOpacity onPress={() => setIsModalVisible(true)}>
-                    <AntDesign name="plus" size={responsiveSize[32]} color={colors.secondaryContrast} />
+                    <AntDesign
+                        testID='plusIcon'
+                        name="plus"
+                        size={responsiveSize[32]}
+                        color={colors.secondaryContrast}
+                    />
                 </TouchableOpacity>
             </Box>
 
