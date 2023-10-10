@@ -18,6 +18,7 @@ import ModalCreatePlayer from '@/components/ModalCreatePlayer';
 import Player from '@/components/Player';
 import useTabBarStyle from '@/hooks/useTabBarStyle';
 import { useAppNavigation } from '@/hooks/useAppNavigation';
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 
 
@@ -27,7 +28,7 @@ const AddPlayer: React.FC = () => {
     const { bottom, top } = useSafeAreaInsets()
 
     const dispatch = useDispatch()
-
+    const playersPlaying = useAppSelector(state => state.playersPlayings)
     const navigation = useAppNavigation()
 
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -46,7 +47,12 @@ const AddPlayer: React.FC = () => {
             tabBar?.setOptions({ tabBarStyle })
         })
     }, [])
+
     const onSelectPlayer = (player: PlayerType) => {
+        const isPlayerPlaying = [playersPlaying.player1.id, playersPlaying.player2.id].includes(player.id)
+
+        if (isPlayerPlaying) return
+        ``
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
     }
