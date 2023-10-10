@@ -52,7 +52,7 @@ const AddPlayer: React.FC = () => {
         const isPlayerPlaying = [playersPlaying.player1.id, playersPlaying.player2.id].includes(player.id)
 
         if (isPlayerPlaying) return
-        ``
+
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
     }
