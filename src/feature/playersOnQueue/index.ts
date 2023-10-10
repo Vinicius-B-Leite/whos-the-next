@@ -22,9 +22,13 @@ export const playersQueueSlice = createSlice({
             if (playerAlreadyOnQueue) return
             state.push(actions.payload)
         },
+        setQueueList: (state, actions: PayloadAction<PlayerType[]>) => {
+            state.length = 0
+            actions.payload.forEach(p => state.push(p))
+        }
     },
 })
 
-export const { removePlayerOnQueue, addNewPlayerOnQueue } = playersQueueSlice.actions
+export const { removePlayerOnQueue, addNewPlayerOnQueue, setQueueList } = playersQueueSlice.actions
 
 export const playersQueueReducer = playersQueueSlice.reducer

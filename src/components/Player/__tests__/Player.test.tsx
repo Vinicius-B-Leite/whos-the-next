@@ -57,10 +57,10 @@ describe('Player', () => {
             { state: State.END, translationX: 60 },
         ])
 
-        const trashIcon = await findByTestId('trashIcon')
-        fireEvent.press(trashIcon)
 
-        await act(() => {
+        await act(async () => {
+            const trashIcon = await findByTestId('trashIcon')
+            fireEvent.press(trashIcon)
             expect(deletePlayerStorage).toBeCalled()
         })
     })

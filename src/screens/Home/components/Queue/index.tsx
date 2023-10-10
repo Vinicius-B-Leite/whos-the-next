@@ -3,16 +3,15 @@ import React from 'react';
 import { headerStyle, listTitle, queueStyle } from './style';
 import Text from '@/components/Text';
 import Button from '@/components/Button';
-import { FlatList } from 'react-native';
 import Player from '@/components/Player';
-import { TabType } from '@/routes/types/tabType';
 import { initGame, selectNextPlayer } from '@/feature/playersPlaying';
-import { addNewPlayerOnQueue, removePlayerOnQueue } from '@/feature/playersOnQueue';
+import { addNewPlayerOnQueue, removePlayerOnQueue, setQueueList } from '@/feature/playersOnQueue';
 import { PlayerType } from '@/types/Player';
 import Animated, { FadeIn, FadeInDown, FadeOutUp } from 'react-native-reanimated';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppNavigation } from '@/hooks/useAppNavigation';
+import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 
 
 const Queue: React.FC = () => {
@@ -54,6 +53,11 @@ const Queue: React.FC = () => {
         dispatch(removePlayerOnQueue({ index: indexPlayer }))
     }
 
+    const handleDrag = (newList: PlayerType[]) => {
+        dispatch(setQueueList(newList))
+    }
+
+
     return (
         <AnimatedBox {...queueStyle} entering={FadeIn.duration(650)}>
             <Box {...headerStyle}>
@@ -67,20 +71,27 @@ const Queue: React.FC = () => {
                 </Button>
             </Box>
 
-            <FlatList
-                data={playersInQueue}
-                keyExtractor={({ id }) => id}
-                renderItem={({ item, index }) =>
-                    <Animated.View
-                        entering={FadeInDown.duration(300 * index)}
-                        exiting={FadeOutUp.duration(500)}>
-                        <Player
-                            {...item}
-                            onSelectPlayer={selectNextPlayerOfQueue}
-                            deletePlayerStorage={handleRemovePlayerFromQueue}
-                        />
-                    </Animated.View>}
-            />
+            <Box flex={1}>
+                <DraggableFlatList
+                    data={playersInQueue}
+                    onDragEnd={({ data }) => handleDrag(data)}
+                    keyExtractor={({ id }) => id}
+                    renderItem={({ item, getIndex, drag, isActive }) =>
+                        <ScaleDecorator>
+                            <Animated.View
+                                entering={FadeInDown.duration(300 * (getIndex() || 1))}
+                                exiting={FadeOutUp.duration(500)}>
+                                <Player
+                                    {...item}
+                                    onSelectPlayer={p => !isActive && selectNextPlayerOfQueue(p)}
+                                    deletePlayerStorage={handleRemovePlayerFromQueue}
+                                    onLongPress={drag}
+                                />
+                            </Animated.View>
+                        </ScaleDecorator>
+                    }
+                />
+            </Box>
         </AnimatedBox>
     )
 }
