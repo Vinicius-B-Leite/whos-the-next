@@ -22,16 +22,16 @@ const Queue: React.FC = () => {
     const dispatch = useAppDispatch()
 
     const selectNextPlayerOfQueue = (player: PlayerType) => {
-        if (player1.id === '1') {
+        const indexOfPlayerOnQueue = playersInQueue.findIndex(p => p.id === player.id)
+
+        const isInitialGame = player1.id === '1' || player2.id === '2'
+
+        if (isInitialGame) {
             dispatch(initGame(player))
-            dispatch(removePlayerOnQueue({ index: 0 }))
+            dispatch(removePlayerOnQueue({ index: indexOfPlayerOnQueue }))
             return
         }
-        if (player2.id === '2') {
-            dispatch(initGame(player))
-            dispatch(removePlayerOnQueue({ index: 0 }))
-            return
-        }
+
         if (playersInQueue[0].id === player.id) {
 
             const isPlayer1Winner = player1.points > player2.points
@@ -42,7 +42,7 @@ const Queue: React.FC = () => {
             if (isNextPlayerAlreadyPlaying) return
 
             dispatch(selectNextPlayer({ nextPlayer: player }))
-            dispatch(removePlayerOnQueue({ index: 0 }))
+            dispatch(removePlayerOnQueue({ index: indexOfPlayerOnQueue }))
 
         }
     }
