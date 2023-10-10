@@ -28,6 +28,7 @@ jest.mock('@/storage/playersStorage', () => ({
 
 
 describe('Add Player', () => {
+
     it('should render correctly with player list', () => {
         const { getByText } = customRender(<AddPlayer />)
 
@@ -111,5 +112,26 @@ describe('Add Player', () => {
 
 
         expect(getByText('Player test')).toBeTruthy()
+    })
+    it('should NOT add player when theses player is playing', () => {
+        mockedGoBack.mockClear()
+
+        const { getByText } = customRender(
+            <AddPlayer />,
+            {
+                preloadedState: {
+                    playersPlayings: {
+                        player1: { ...mock.playerMock[1], points: 1 },
+                        player2: { ...mock.playerMock[0], points: 1 }
+                    }
+                }
+            }
+        )
+
+        const playerAlreadyPlaying = getByText(mock.playerMock[1].playerName)
+
+        fireEvent.press(playerAlreadyPlaying)
+
+        expect(mockedGoBack).not.toHaveBeenCalled()
     })
 })
