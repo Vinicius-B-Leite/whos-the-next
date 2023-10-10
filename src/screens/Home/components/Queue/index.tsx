@@ -39,7 +39,8 @@ const Queue: React.FC = () => {
 
             dispatch(addNewPlayerOnQueue(isPlayer1Winner ? player2 : player1))
 
-            if ([player1.id, player2.id].includes(player.id)) return
+            const isNextPlayerAlreadyPlaying = [player1.id, player2.id].includes(player.id)
+            if (isNextPlayerAlreadyPlaying) return
 
             dispatch(selectNextPlayer({ nextPlayer: player }))
             dispatch(removePlayerOnQueue({ index: 0 }))
