@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@/components/Box';
 import Text from '@/components/Text';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { boxStyle, imageStyle, textStyle } from './style';
@@ -13,10 +12,11 @@ import { runOnJS } from 'react-native-reanimated';
 
 type Props = PlayerType & {
     onSelectPlayer: (player: PlayerType) => void,
-    deletePlayerStorage: (player: PlayerType) => void
+    deletePlayerStorage: (player: PlayerType) => void,
+    onLongPress?: () => void,
 }
 
-const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayerStorage, ...player }) => {
+const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayerStorage, onLongPress, ...player }) => {
     const tap = Gesture.Tap().numberOfTaps(2).onEnd(() => {
         runOnJS(onSelectPlayer)(player)
     }).withTestId('tap')
@@ -29,7 +29,7 @@ const Player: React.FC<Props> = ({ onSelectPlayer, deletePlayerStorage, ...playe
                 <LeftSwipeable onClickIcon={() => deletePlayerStorage(player)} />}
         >
             <GestureDetector gesture={tap} >
-                <Button {...boxStyle} >
+                <Button {...boxStyle} onLongPress={onLongPress} >
                     <Image
                         testID='avatar'
                         source={player.avatarUrl ? { uri: player.avatarUrl } : ImageNotFound}
