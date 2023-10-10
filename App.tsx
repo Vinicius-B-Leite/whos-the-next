@@ -6,6 +6,8 @@ import { StatusBar } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { store } from '@/feature/store';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '@/components/Toast';
 
 export default function App() {
   return (

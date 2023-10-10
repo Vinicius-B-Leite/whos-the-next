@@ -19,6 +19,8 @@ import Player from '@/components/Player';
 import useTabBarStyle from '@/hooks/useTabBarStyle';
 import { useAppNavigation } from '@/hooks/useAppNavigation';
 import { useAppSelector } from '@/hooks/useAppSelector';
+import Toast from 'react-native-toast-message';
+
 
 
 
@@ -51,7 +53,13 @@ const AddPlayer: React.FC = () => {
     const onSelectPlayer = (player: PlayerType) => {
         const isPlayerPlaying = [playersPlaying.player1.id, playersPlaying.player2.id].includes(player.id)
 
-        if (isPlayerPlaying) return
+        if (isPlayerPlaying) {
+            Toast.show({
+                type: 'error',
+                text1: 'Este jogador já está jogando!',
+            });
+            return
+        }
 
         dispatch(addNewPlayerOnQueue(player))
         navigation.goBack()
