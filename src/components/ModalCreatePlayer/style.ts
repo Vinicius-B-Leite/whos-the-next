@@ -31,8 +31,8 @@ export const pickImageStyle: ButtonType = {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 'full',
-    width: '40%',
-    paddingVertical: 32,
+    width: responsiveSize[100],
+    height: responsiveSize[100],
     alignSelf: 'center',
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Text from '@/components/Text';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { boxStyle, imageStyle, textStyle } from './style';
-import { Image } from 'react-native';
+import { Image } from 'expo-image';
 import LeftSwipeable from './components/LeftSwipeable';
 import { PlayerType } from '@/types/Player';
 import ImageNotFound from '@/assets/imageNotFound.png';
