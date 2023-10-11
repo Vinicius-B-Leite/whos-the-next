@@ -28,6 +28,12 @@ export const theme = createTheme({
         buttonSecondary: {
             color: 'secondaryContrast',
             textDecorationLine: 'underline'
+        },
+        screenTitle: {
+            color: 'primaryText',
+            fontWeight: 'bold',
+            fontSize: responsiveSize[24],
+            textAlign: 'center'
         }
     },
     buttonVariants: {

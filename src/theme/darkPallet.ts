@@ -14,4 +14,8 @@ export const darkPallete = {
 
     alert: '#FF0000',
     darkAlert: '#4d0000',
+
+    gold: '#FFD700',
+    silver: '#c0c0c0',
+    bronze: '#cd7f32'
 }
