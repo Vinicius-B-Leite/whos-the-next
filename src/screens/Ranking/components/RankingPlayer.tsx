@@ -27,6 +27,7 @@ const RankingPlayer: React.FC<Props> = ({ index, item }) => {
         {
           index <= 2 ?
             <FontAwesome5
+              testID='trophy'
               name="trophy"
               size={responsiveSize[32]}
               color={color[index]}

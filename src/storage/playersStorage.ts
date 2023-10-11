@@ -10,7 +10,7 @@ export function setPlayerStorage(plasyers: PlayerType[]) {
 export function getPlayerStorage() {
     const players = storage.getString(PLAYERS_KEY)
 
-    return players ? JSON.parse(players) as PlayerType[] : []
+    return players ? JSON.parse(players) as PlayerType[] : null
 }
 
 export function deletePlayerStorage(player: PlayerType) {
