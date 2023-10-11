@@ -20,4 +20,5 @@ export const responsiveSize = {
     64: RFValue(64),
     76: RFValue(76),
     80: RFValue(80),
+    100: RFValue(100)
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Modal, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Modal, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import Button from '../Button';
 import { closeBtnStyle, containerStyle, createPlayerBtnStyle, mainContainer, pickImageStyle, usernameInputStyle } from './style';
 import Box from '../Box';
@@ -11,6 +11,7 @@ import Text from '../Text';
 import { getPlayerStorage, setPlayerStorage } from '@/storage/playersStorage';
 import { PlayerType } from '@/types/Player';
 import uuid from 'react-native-uuid';
+import { pickImage } from '@/utils/pickImage';
 
 
 
@@ -22,9 +23,9 @@ type Props = {
 }
 
 const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessPlayerCreated }) => {
-    const { colors } = useTheme<ThemeType>()
+    const { colors, borderRadii } = useTheme<ThemeType>()
     const [username, setUsername] = useState('')
-
+    const [imageUrl, setImageUrl] = useState('')
 
     const handleAddPlayer = () => {
         if (!username) return
@@ -35,12 +36,17 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
             losses: 0,
             wins: 0,
             playerName: username,
-            avatarUrl: ''
+            avatarUrl: imageUrl || ''
         }
         setPlayerStorage(allPlayers ? [...allPlayers, newPlayer] : [newPlayer])
         onSucessPlayerCreated(newPlayer)
         onRequestClose()
         setUsername('')
+    }
+
+    const handlePickImage = async () => {
+        const imageAssets = await pickImage()
+        setImageUrl(imageAssets?.uri || '')
     }
 
     return (
@@ -59,8 +65,15 @@ const ModalCreatePlayer: React.FC<Props> = ({ visible, onRequestClose, onSucessP
                     <ScrollView
                         style={[{ backgroundColor: colors.bg, }, containerStyle]}
                         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} >
-                        <Button {...pickImageStyle}>
-                            <Entypo name="camera" size={responsiveSize[32]} color={colors.primaryContrast} />
+                        <Button {...pickImageStyle} onPress={handlePickImage}>
+                            {
+                                imageUrl ?
+                                    <Image
+                                        source={{ uri: imageUrl }}
+                                        style={{ width: '100%', height: '100%', borderRadius: borderRadii.full }} />
+                                    :
+                                    <Entypo name="camera" size={responsiveSize[32]} color={colors.primaryContrast} />
+                            }
                         </Button>
                         <TextInput
                             style={[
