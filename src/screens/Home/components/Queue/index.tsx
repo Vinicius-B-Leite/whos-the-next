@@ -12,6 +12,7 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppNavigation } from '@/hooks/useAppNavigation';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
+import { getPlayerStorage, setPlayerStorage } from '@/storage/playersStorage';
 
 
 const Queue: React.FC = () => {
@@ -20,6 +21,24 @@ const Queue: React.FC = () => {
     const { player1, player2 } = useAppSelector((state) => state.playersPlayings)
 
     const dispatch = useAppDispatch()
+
+    const saveWinnerAndLossesOnStorage = () => {
+        const playersStorage = getPlayerStorage()
+
+        if (!playersStorage) return
+
+        const playerWinner = player1.points > player2.points ? player1 : player2
+        const playerLoser = player1.points < player2.points ? player1 : player2
+
+        const indexOfWinner = playersStorage.findIndex(p => p.id === playerWinner.id)
+        const indexOfLoser = playersStorage.findIndex(p => p.id === playerLoser.id)
+
+        let playerStorageUpdated = playersStorage
+        playerStorageUpdated[indexOfWinner].wins += 1
+        playerStorageUpdated[indexOfLoser].losses += 1
+
+        setPlayerStorage(playerStorageUpdated)
+    }
 
     const selectNextPlayerOfQueue = (player: PlayerType) => {
         const indexOfPlayerOnQueue = playersInQueue.findIndex(p => p.id === player.id)
@@ -35,6 +54,7 @@ const Queue: React.FC = () => {
         if (playersInQueue[0].id === player.id) {
 
             const isPlayer1Winner = player1.points > player2.points
+            saveWinnerAndLossesOnStorage()
 
             dispatch(addNewPlayerOnQueue(isPlayer1Winner ? player2 : player1))
 
